@@ -5,15 +5,18 @@ import pygame
 import os
 import tkinter as tk
 
+
 def generate_random_word(length):
     letters = string.ascii_lowercase
     return ''.join(random.choice(letters) for i in range(length))
+
 
 def text_to_speech(text, lang='en', slow=False):
     tts = gTTS(text=text, lang=lang, slow=slow)
     filename = 'output.mp3'
     tts.save(filename)
     return filename
+
 
 def play_sound(file):
     pygame.mixer.init()
@@ -23,10 +26,12 @@ def play_sound(file):
         continue
     pygame.mixer.quit()
 
+
 def random_number():
     length = random.randint(2, 5)
-    number = random.randint(10**(length-1), 10**length - 1)
+    number = random.randint(10 ** (length - 1), 10 ** length - 1)
     return number
+
 
 def speak_number():
     number = random_number()
@@ -35,11 +40,13 @@ def speak_number():
     play_sound(tts_file)
     os.remove(tts_file)
 
+
 def random_word():
     letters = 'abcdefghijklmnopqrstuvwxyz'
     length = random.randint(3, 8)
     word = ''.join(random.choice(letters) for _ in range(length))
     return word
+
 
 def speak_word():
     word = random_word()
@@ -47,6 +54,20 @@ def speak_word():
     tts_file = text_to_speech(word, lang='en')
     play_sound(tts_file)
     os.remove(tts_file)
+
+
+def read_code():
+    # Tạo mã lẫn lộn gồm chữ số và chữ cái, tối đa 8 ký tự
+    code = ''.join(random.choices(string.ascii_lowercase + string.digits, k=random.randint(6, 10)))
+    result_label.config(text=f"Mã lẫn lộn: {code}")
+
+    # Phát âm từng từ trong mã, giới hạn tối đa 8 từ
+    words = [code[i:i + 1] for i in range(min(len(code), 8))]
+    for word in words:
+        tts_file = text_to_speech(word, lang='en')
+        play_sound(tts_file)
+        os.remove(tts_file)
+
 
 # Tạo giao diện người dùng
 root = tk.Tk()
@@ -63,6 +84,9 @@ number_button.pack(pady=5)
 
 word_button = tk.Button(frame, text="Đọc chữ", command=speak_word, font=("Helvetica", 14), width=20)
 word_button.pack(pady=5)
+
+code_button = tk.Button(frame, text="Đọc mã lẫn lộn", command=read_code, font=("Helvetica", 14), width=20)
+code_button.pack(pady=5)
 
 result_label = tk.Label(frame, text="", font=("Helvetica", 16))
 result_label.pack(pady=10)
