@@ -10,26 +10,27 @@ class SpellerApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Speller")
-
-        self.frame = tk.Frame(root)
+        self.root.geometry("500x500")
+        self.root.configure(bg='mintcream')
+        self.frame = tk.Frame(root, bg='mintcream')
         self.frame.pack(pady=20)
 
         self.number_button = tk.Button(self.frame, text="Đọc số", command=self.speak_number, font=("Helvetica", 14),
-                                       width=20)
+                                       width=20,bg='aqua')
         self.number_button.pack(pady=5)
 
         self.word_button = tk.Button(self.frame, text="Đọc chữ", command=self.speak_word, font=("Helvetica", 14),
-                                     width=20)
+                                     width=20,bg='aquamarine')
         self.word_button.pack(pady=5)
 
         self.code_button = tk.Button(self.frame, text="Đọc mã lẫn lộn", command=self.read_code, font=("Helvetica", 14),
-                                     width=20)
+                                     width=20,bg='ivory')
         self.code_button.pack(pady=5)
 
-        self.result_label = tk.Label(self.frame, text="", font=("Helvetica", 16))
+        self.result_label = tk.Label(self.frame, text="", font=("Helvetica", 16),bg='mintcream')
         self.result_label.pack(pady=10)
 
-        self.exit_button = tk.Button(self.frame, text="Thoát", command=root.quit, font=("Helvetica", 14), width=20)
+        self.exit_button = tk.Button(self.frame, text="Thoát", command=root.quit, font=("Helvetica", 14), width=20,bg='lavender')
         self.exit_button.pack(pady=5)
 
     def text_to_speech(self, text, lang='en', slow=False):
@@ -82,23 +83,25 @@ class SpellerApp:
             self.play_sound(tts_file)
             os.remove(tts_file)
 
-nouns = ["dog", "cat", "book", "car", "tree", "apple", "child", "bus", "fox", "box"]
+nouns = ["dog", "cat", "book", "car", "tree", "apple", "child", "bus", "fox", "box","people","children",'rock','house','box','roof','chef','belief','student','rose','thing']
 class NounCheckerApp:
     def __init__(self, root):
         self.root = root
         self.root.title("SPELLER MAX")
 
+        self.frame = tk.Frame(root)
+        self.frame.pack(pady=20)
         # Tạo các widget
-        self.label = tk.Label(root, text="Enter the word:")
+        self.label = tk.Label(root, text="Enter the word:",bg='azure')
         self.label.pack()
 
         self.entry = tk.Entry(root)
         self.entry.pack()
 
-        self.create_button = tk.Button(root, text="Create", command=self.next_noun)
+        self.create_button = tk.Button(root, text="Create", command=self.next_noun,bg='lavenderblush')
         self.create_button.pack()
 
-        self.check_button = tk.Button(root, text="Check", command=self.check_noun)
+        self.check_button = tk.Button(root, text="Check", command=self.check_noun,bg='snow')
         self.check_button.pack()
 
         self.result_label = tk.Label(root, text="")
@@ -127,9 +130,9 @@ class NounCheckerApp:
         correct_noun = self.current_noun if self.singular else self.current_noun + "s"
 
         if user_input == correct_noun:
-            self.result_label.config(text="Correct!", fg="green")
+            self.result_label.config(text="Correct!", fg="green",bg='mintcream')
         else:
-            self.result_label.config(text=f"Wrong! The correct word is '{correct_noun}'", fg="red")
+            self.result_label.config(text=f"Wrong! The correct word is '{correct_noun}'", fg="red",bg='mintcream')
 
         self.entry.delete(0, tk.END)
 
